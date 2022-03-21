@@ -2,10 +2,11 @@ use Mix.Config
 
 # Configure your database
 config :daily_meals, DailyMeals.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "admin",
+  password: "admin",
   database: "daily_meals_dev",
   hostname: "localhost",
+  port: "5433",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 

@@ -8,7 +8,11 @@ defmodule DailyMealsWeb.Router do
   scope "/api/v1", DailyMealsWeb do
     pipe_through(:api)
 
+    get("/meals", MealsController, :find_all)
+    get("/meals/:id", MealsController, :find_by_id)
     post("/meals", MealsController, :create)
+    put("/meals/:id", MealsController, :update)
+    delete("/meals/:id", MealsController, :delete)
   end
 
   if Mix.env() in [:dev, :test] do

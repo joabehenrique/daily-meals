@@ -6,7 +6,7 @@
 ![Bitbucket open issues](https://img.shields.io/bitbucket/issues/joabehenrique/daily-meals?style=flat)
 ![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/joabehenrique/daily-meals?style=flat)
 
-> 
+> Project was developed on top of a challenge made on the elixir trail in rocketseat.
 
 ## 💻 Requirements
 
@@ -21,7 +21,6 @@ If you need installation instructions, [click here](https://hexdocs.pm/phoenix/i
 To install Daily Meals, follow these steps:
 
 1º Clone the repository.
-
 ```
 >  git clone https://github.com/joabehenrique/daily-meals.git
 ```
@@ -29,7 +28,12 @@ To install Daily Meals, follow these steps:
 ```
 > mix deps.get
 ```
-3º Just run project
+
+3º Configure your postgresql in your profile
+```
+> config / dev & test
+```
+4º Just run project
 ```
 > mix phx.server
 ```
@@ -38,31 +42,41 @@ To install Daily Meals, follow these steps:
 To use Daily Meals, follow these steps:
 
 ```
+Project was developed on top of a challenge made on 
+the elixir trail in rocketseat.
 
+In it you can create a new daily meal, remove, 
+update, fetch meals or a specific one.
 ```
-
-Getting a 
+Getting all meals
 ```
-(GET) api/v1//{id}
+(GET) api/v1/meals
 ```
-Deleting a 
+Getting a meal
 ```
-(DELETE) api/v1//{id}
+(GET) api/v1/meals/{id}
 ```
-Creating a 
+Deleting a meal
 ```
-(POST) api/v1/
+(DELETE) api/v1/meals/{id}
+```
+Creating a meal
+```
+(POST) api/v1/meals
 
 {
-   
+  "description": "Pizza 1/2 Calabresa",
+  "date": "2022-03-21 13:14:22",
+  "calories": 236
 }
 ```
-Changing a 
+Changing a meal
 ```
-(PUT) api/v1//{id}
+(PUT) api/v1/meals/{id}
 
 {
-    
+  "description": "Pizza 1/2 4 Queijos",
+  "calories": 102
 }
 ```
 

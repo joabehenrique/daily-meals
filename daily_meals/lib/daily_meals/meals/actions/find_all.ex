@@ -6,7 +6,6 @@ defmodule DailyMeals.Meals.FindAll do
   def call() do
     query = from(Meals)
 
-    # IO.inspect(Repo.all(query), label: "\n:::::AQUI:::::\n")
     case Repo.all(query) do
       nil -> {:error, Error.build_meal_not_found_error()}
       meal -> {:ok, meal}

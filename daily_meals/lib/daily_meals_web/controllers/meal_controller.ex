@@ -23,7 +23,7 @@ defmodule DailyMealsWeb.MealsController do
   end
 
   def delete(conn, %{"id" => id}) do
-    with {:ok, %Meals{} = meal} <- DailyMeals.delete_meal(id) do
+    with {:ok, _meal} <- DailyMeals.delete_meal(id) do
       conn
       |> put_status(:no_content)
       |> text("")

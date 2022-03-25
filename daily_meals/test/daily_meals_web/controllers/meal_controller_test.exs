@@ -1,31 +1,49 @@
 defmodule DailyMeals.MealsControllerTest do
   use DailyMealsWeb.ConnCase, async: true
 
+  import DailyMeals.Factory
+
+  alias DailyMeals.{Meals, User}
+
   describe "create/2" do
     test "when all params are valid, creates a meal", %{conn: conn} do
-      params = %{description: "Banana", date: "2020-03-10 13:14:22", calories: "20"}
+      user_params = build(:users_params)
+
+      {:ok, %User{id: user_id}} = DailyMeals.create_user(user_params)
+
+      params = build(:meals_params, %{user_id: user_id})
 
       response =
         conn
         |> post(Routes.meals_path(conn, :create, params))
         |> json_response(:created)
 
+      %{"meal" => %{"id" => id}} = response
+
       assert %{
                "meal" => %{
                  "calories" => 20,
-                 "date" => "2020-03-10T13:14:22Z",
+                 "date" => "2022-03-22T13:14:22Z",
                  "description" => "Banana",
-                 "id" => _id
+                 "id" => ^id,
+                 "user_id" => ^user_id
                },
                "message" => "Meal created"
              } = response
     end
 
     test "when there are invalid params, returns an error", %{conn: conn} do
-      params = %{description: "Banana"}
+      user_params = build(:users_params)
+
+      {:ok, %User{id: user_id}} = DailyMeals.create_user(user_params)
+
+      params = build(:meals_invalid_params, %{"user_id" => user_id})
 
       expected_response = %{
-        "message" => %{"calories" => ["can't be blank"], "date" => ["can't be blank"]}
+        "message" => %{
+          "calories" => ["can't be blank"],
+          "date" => ["can't be blank"]
+        }
       }
 
       response =
@@ -39,11 +57,13 @@ defmodule DailyMeals.MealsControllerTest do
 
   describe "delete/2" do
     test "when id exist, delete the meal", %{conn: conn} do
-      params = %{description: "Banana", date: "2020-03-10 13:14:22", calories: "20"}
+      user_params = build(:users_params)
 
-      {:ok, meal} = DailyMeals.create_meal(params)
+      {:ok, %User{id: user_id}} = DailyMeals.create_user(user_params)
 
-      id = meal.id
+      params = build(:meals_params, %{"user_id" => user_id})
+
+      {:ok, %Meals{id: id}} = DailyMeals.create_meal(params)
 
       response =
         conn
@@ -54,7 +74,7 @@ defmodule DailyMeals.MealsControllerTest do
     end
 
     test "when id not exist, return an error", %{conn: conn} do
-      id = "34"
+      id = 1
 
       response =
         conn
@@ -69,11 +89,13 @@ defmodule DailyMeals.MealsControllerTest do
 
   describe "update/2" do
     test "when id exist, update the meal", %{conn: conn} do
-      params = %{description: "Banana", date: "2020-03-10 13:14:22", calories: "20"}
+      user_params = build(:users_params)
 
-      {:ok, meal} = DailyMeals.create_meal(params)
+      {:ok, %User{id: user_id}} = DailyMeals.create_user(user_params)
 
-      id = meal.id
+      params = build(:meals_params, %{"user_id" => user_id})
+
+      {:ok, %Meals{id: id}} = DailyMeals.create_meal(params)
 
       response =
         conn
@@ -83,15 +105,16 @@ defmodule DailyMeals.MealsControllerTest do
       assert %{
                "meal" => %{
                  "calories" => 20,
-                 "date" => "2020-03-10T13:14:22Z",
+                 "date" => "2022-03-22T13:14:22Z",
                  "description" => "Banana",
-                 "id" => _id
+                 "id" => ^id,
+                 "user_id" => ^user_id
                }
              } = response
     end
 
     test "when not exist id, return an error", %{conn: conn} do
-      id = "34"
+      id = 1
 
       response =
         conn
@@ -104,11 +127,13 @@ defmodule DailyMeals.MealsControllerTest do
 
   describe "get/2" do
     test "when id exist, return the meal", %{conn: conn} do
-      params = %{description: "Banana", date: "2020-03-10 13:14:22", calories: "20"}
+      user_params = build(:users_params)
 
-      {:ok, meal} = DailyMeals.create_meal(params)
+      {:ok, %User{id: user_id}} = DailyMeals.create_user(user_params)
 
-      id = meal.id
+      params = build(:meals_params, %{"user_id" => user_id})
+
+      {:ok, %Meals{id: id}} = DailyMeals.create_meal(params)
 
       response =
         conn
@@ -118,15 +143,16 @@ defmodule DailyMeals.MealsControllerTest do
       assert %{
                "meal" => %{
                  "calories" => 20,
-                 "date" => "2020-03-10T13:14:22Z",
+                 "date" => "2022-03-22T13:14:22Z",
                  "description" => "Banana",
-                 "id" => _id
+                 "id" => ^id,
+                 "user_id" => ^user_id
                }
              } = response
     end
 
     test "when id not exist, return an error", %{conn: conn} do
-      id = "34"
+      id = 1
 
       response =
         conn

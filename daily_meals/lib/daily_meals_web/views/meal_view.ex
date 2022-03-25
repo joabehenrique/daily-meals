@@ -9,6 +9,11 @@ defmodule DailyMealsWeb.MealsView do
       meal: meal
     }
 
+  def render("meal.json", %{meal: %Meals{} = meal}),
+    do: %{
+      meal: meal
+    }
+
   def render("find_all.json", %{meal: meal}) do
     %{
       message: "Meal found",

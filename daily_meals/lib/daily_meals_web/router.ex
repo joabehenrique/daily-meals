@@ -13,6 +13,12 @@ defmodule DailyMealsWeb.Router do
     post("/meals", MealsController, :create)
     put("/meals/:id", MealsController, :update)
     delete("/meals/:id", MealsController, :delete)
+
+    get("/users", UserController, :find_all)
+    get("/users/:id", UserController, :find_by_id)
+    post("/users", UserController, :create)
+    put("/users/:id", UserController, :update)
+    delete("/users/:id", UserController, :delete)
   end
 
   if Mix.env() in [:dev, :test] do

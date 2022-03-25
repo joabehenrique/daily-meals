@@ -7,12 +7,17 @@ defmodule DailyMeals.MealsTest do
 
   describe "changeset/1" do
     test "when all params are valid, returns a valid changeset" do
-      params = %{description: "Batata", date: "2022-03-22 13:14:22", calories: "20"}
+      params = %{description: "Batata", date: "2022-03-22 13:14:22", calories: "20", user_id: 1}
 
       response = Meals.changeset(params)
 
       assert %Changeset{
-               changes: %{description: "Batata", date: ~U[2022-03-22 13:14:22Z], calories: 20},
+               changes: %{
+                 description: "Batata",
+                 date: ~U[2022-03-22 13:14:22Z],
+                 calories: 20,
+                 user_id: 1
+               },
                valid?: true
              } = response
     end

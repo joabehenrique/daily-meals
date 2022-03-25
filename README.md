@@ -79,6 +79,37 @@ Changing a meal
   "calories": 102
 }
 ```
+Getting all users
+```
+(GET) api/v1/users
+```
+Getting a user
+```
+(GET) api/v1/users/{id}
+```
+Deleting a user
+```
+(DELETE) api/v1/users/{id}
+```
+Creating a user
+```
+(POST) api/v1/users
+
+{
+  "name": "Joabe Henrique",
+  "email": "henriquecidoz@hotmail.com",
+  "cpf": "12345678990"
+}
+```
+Changing a user
+```
+(PUT) api/v1/users/{id}
+
+{
+  "name": "Joabe Carvalho",
+  "email": "henriqueciido@hotmail.com",
+}
+```
 
 
 ## 📫 Contributing to Daily Meals
